@@ -1,0 +1,48 @@
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://efpage.de/DML/DML_homepage/lib/DML-min.js"></script>
+  </head>
+
+  <body>
+  <div class="header">My class name is 'header', defined globally</div>
+  <hr />
+  <div id="myapp"></div>
+
+    <script>
+      function css(template) {
+        var text = typeof template == 'string' ? [template] : [template[0]];
+        for (var i = 1, length = arguments.length; i < length; i++) {
+          text.push(arguments[i], template[i]);
+        }
+        var style = document.createElement('style');
+        style.type = 'text/css';
+        style.appendChild(document.createTextNode(text.join('')));
+        return document.head.appendChild(style);
+      }
+      const nameSpace = 'AppName';
+
+      let setClass = (classname, color) => {
+        let ns = `${nameSpace}-${classname}`;
+        css`
+          .${ns} {
+            color: ${color};
+            font-size: 24px;
+          }
+        `;
+        return ns;
+      };
+
+      selectBase(document.getElementById('myapp'));
+      print(
+        `<h1 class="${setClass(
+          'header',
+          'red'
+        )}">My class name is : '${nameSpace}-header', defined dynamically</h1>`
+      );
+      unselectBase();
+    </script>
+  </body>
+</html>
